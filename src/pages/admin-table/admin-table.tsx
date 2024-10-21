@@ -5,8 +5,8 @@ import tasks from "@/pages/admin-table/data/tasks.json";
 
 export default function AdminTable() {
 
-  return <main className="p-4 min-h-dvh grid items-center">
-    <section className="w-4/5 mx-auto">
+  return <main className="min-h-screen flex-center">
+    <section className="mx-auto">
       <DataTable columns={columns} data={tasks} />
     </section>
   </main>

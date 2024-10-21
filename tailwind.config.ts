@@ -54,7 +54,10 @@ export default {
 					"4": "hsl(var(--chart-4))",
 					"5": "hsl(var(--chart-5))"
 				}
-			}
+			},
+			fontFamily: {
+				sans: ["var(--font-primary)"]
+			},
 		}
 	},
 	// eslint-disable-next-line @typescript-eslint/no-require-imports
