@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import RootErrorBoundary from "@/components/error-boundarys/root-error-boundary";
 import Frame from "@/components/layouts/frame";
+import SuspenseLoader from "./components/common/suspense-loader";
 
 const App: FC = () => {
 
@@ -15,7 +16,7 @@ const App: FC = () => {
         {
           index: true,
           lazy: async () => {
-            const module = await import("@/pages/admin-table");
+            const module = await import("@/pages/admin-table/admin-table");
             return { Component: module.default };
           },
         },
@@ -29,7 +30,7 @@ const App: FC = () => {
 
   return <RouterProvider
     router={routes}
-    fallbackElement={<>Loading...</>} />;
+    fallbackElement={<div className="min-h-dvh flex-center"><SuspenseLoader /></div>} />;
 };
 
 export default App;

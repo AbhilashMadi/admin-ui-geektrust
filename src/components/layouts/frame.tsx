@@ -10,7 +10,7 @@ const Frame: FC = () => {
   return (
     <ThemeContext>
       <Header />
-      <main className="min-h-[calc(100dvh-6rem)]"><Outlet /></main>
+      <Outlet />
       <Footer />
     </ThemeContext>
   )

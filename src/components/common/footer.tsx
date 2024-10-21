@@ -1,7 +1,7 @@
 import { type FC } from "react";
 
 const Footer: FC = () => {
-  return (<footer className="h-[3rem]"></footer>)
+  return (<footer />)
 }
 
 export default Footer;
