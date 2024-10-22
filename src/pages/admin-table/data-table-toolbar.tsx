@@ -55,8 +55,8 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <div className="flex gap-2">
-        <ThemeTabs />
         <DataTableViewOptions table={table} />
+        <ThemeTabs />
       </div>
     </div>
   )

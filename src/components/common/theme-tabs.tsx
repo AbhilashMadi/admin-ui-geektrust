@@ -12,9 +12,9 @@ const ThemeTabs: FC = () => {
   return (
     <Tabs value={theme} onValueChange={(v) => setTheme(v as Theme)}>
       <TabsList>
-        <TabsTrigger value={Constants.DARK}><MoonIcon className="h-5" /></TabsTrigger>
-        <TabsTrigger value={Constants.LIGHT}><SunIcon className="h-5" /></TabsTrigger>
-        <TabsTrigger value={Constants.SYSTEM}><LaptopIcon className="h-5" /></TabsTrigger>
+        <TabsTrigger value={Constants.DARK}><MoonIcon className="h-4" /></TabsTrigger>
+        <TabsTrigger value={Constants.LIGHT}><SunIcon className="h-4" /></TabsTrigger>
+        <TabsTrigger value={Constants.SYSTEM}><LaptopIcon className="h-4" /></TabsTrigger>
       </TabsList>
     </Tabs>
   );
