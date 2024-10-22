@@ -17,6 +17,7 @@ import {
 } from "@ui/select";
 import { Dispatch, SetStateAction } from "react";
 import { userSchema } from "./data/schema";
+import { Input } from "@/components/ui/input";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -32,15 +33,15 @@ export function DataTablePagination<TData>({
   const selectedRows = table.getFilteredSelectedRowModel().rows?.length;
 
   const handleSelectedRowsDelete = (): void => {
+    if (!table.getFilteredSelectedRowModel().rows.length) return;
+
     setDataSource((oldData) => oldData.filter((_r: TData, i: number) => !table.getRowModel().rows[i]?.getIsSelected()));
     table.resetRowSelection();
-
-    console.log(table.getFilteredSelectedRowModel());
 
     toast({
       title: "Selected rows has been deleted successfully",
       description: <div>
-        Selected rows with IDs
+        Selected row(s) with IDs
         <span className="font-bold"> {table.getFilteredSelectedRowModel().rows.map((r) => userSchema.parse(r.original).id).join(", ")} </span>
         are deleted from the admin-list successfully.
       </div>
@@ -55,7 +56,21 @@ export function DataTablePagination<TData>({
           {filteredRows} row(s) selected
         </Button>
       </div>
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex items-center space-x-3 lg:space-x-3">
+        <div className="flex items-center space-x-2">
+          <p className="text-sm font-medium">Go to </p>
+          <Input
+            type="number"
+            min="1"
+            max={table.getPageCount()}
+            defaultValue={table.getState().pagination.pageIndex + 1}
+            onChange={e => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              table.setPageIndex(page)
+            }}
+            className="w-14 h-full p-1.5"
+          />
+        </div>
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select
