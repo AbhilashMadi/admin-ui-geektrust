@@ -56,7 +56,7 @@ export function DataTablePagination<TData>({
           {filteredRows} row(s) selected
         </Button>
       </div>
-      <div className="flex items-center space-x-3 lg:space-x-3">
+      <div className="flex items-center space-x-3 lg:space-x-3 ml-4">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Go to </p>
           <Input
