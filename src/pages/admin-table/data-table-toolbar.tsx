@@ -7,6 +7,7 @@ import { DataTableViewOptions } from "@pages/admin-table/data-table-view-options
 
 // import { priorities, statuses } from "../data/data"
 import { DataTableFacetedFilter } from "@pages/admin-table/data-table-faceted-filter"
+import ThemeTabs from "@components/common/theme-tabs"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -44,7 +45,7 @@ export function DataTableToolbar<TData>({
         {table.getColumn("role") && (
           <DataTableFacetedFilter
             column={table.getColumn("role")}
-            title="Status"
+            title="Roles"
             options={userRoles}
           />
         )}
@@ -52,14 +53,16 @@ export function DataTableToolbar<TData>({
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
+            className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+      <div className="flex gap-2">
+        <ThemeTabs />
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   )
 }

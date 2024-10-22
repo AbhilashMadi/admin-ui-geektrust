@@ -39,7 +39,7 @@ export function DataTableColumnHeader<TData, TValue>({
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
+            className="h-8 data-[state=open]:bg-accent"
           >
             <span>{title}</span>
             {column.getIsSorted() === "desc" ? (
@@ -62,7 +62,7 @@ export function DataTableColumnHeader<TData, TValue>({
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => column.clearSorting()}>
             <ShuffleIcon className="mr-2 size-3 text-muted-foreground/70" />
-            Shuffle
+            Reset Sort
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>

@@ -1,32 +1,59 @@
+import { toast } from "@/hooks/use-toast";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
-} from "@radix-ui/react-icons"
-import { Table } from "@tanstack/react-table"
+} from "@radix-ui/react-icons";
+import { Table } from "@tanstack/react-table";
 
-import { Button } from "@ui/button"
+import { Button } from "@ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@ui/select"
+} from "@ui/select";
+import { Dispatch, SetStateAction } from "react";
+import { userSchema } from "./data/schema";
 
 interface DataTablePaginationProps<TData> {
-  table: Table<TData>
+  table: Table<TData>;
+  setDataSource: Dispatch<SetStateAction<TData[]>>;
 }
 
 export function DataTablePagination<TData>({
   table,
+  setDataSource,
 }: DataTablePaginationProps<TData>) {
+
+  const filteredRows = table.getFilteredRowModel().rows?.length;
+  const selectedRows = table.getFilteredSelectedRowModel().rows?.length;
+
+  const handleSelectedRowsDelete = (): void => {
+    setDataSource((oldData) => oldData.filter((_r: TData, i: number) => !table.getRowModel().rows[i]?.getIsSelected()));
+    table.resetRowSelection();
+
+    console.log(table.getFilteredSelectedRowModel());
+
+    toast({
+      title: "Selected rows has been deleted successfully",
+      description: <div>
+        Selected rows with IDs
+        <span className="font-bold"> {table.getFilteredSelectedRowModel().rows.map((r) => userSchema.parse(r.original).id).join(", ")} </span>
+        are deleted from the admin-list successfully.
+      </div>
+    })
+  }
+
   return (
-    <div className="flex items-center justify-between px-2">
+    <div className="flex items-center justify-between">
       <div className="flex-1 text-sm text-muted-foreground">
-        {table.getFilteredSelectedRowModel().rows.length} of{" "}
-        {table.getFilteredRowModel().rows.length} row(s) selected.
+        <Button size="sm" variant={selectedRows ? "destructive" : "outline-dashed"} onClick={handleSelectedRowsDelete}>
+          Delete{" "}{selectedRows} of{" "}
+          {filteredRows} row(s) selected
+        </Button>
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">

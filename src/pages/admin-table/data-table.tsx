@@ -28,12 +28,14 @@ import { DataTableToolbar } from "./data-table-toolbar"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data: TData[],
+  setDataSource: React.Dispatch<React.SetStateAction<TData[]>>
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  setDataSource,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -118,7 +120,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} setDataSource={setDataSource} />
     </div>
   )
 }

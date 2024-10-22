@@ -1,24 +1,10 @@
 "use client"
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons"
 import { Row } from "@tanstack/react-table"
 
 import { Button } from "@ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@ui/dropdown-menu"
 
-import { userRoles } from "@pages/admin-table/data-table-toolbar"
 import { userSchema } from "@pages/admin-table/data/schema"
 
 interface DataTableRowActionsProps<TData> {
@@ -30,40 +16,13 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const user = userSchema.parse(row.original)
 
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-        >
-          <DotsHorizontalIcon className="h-4 w-4" />
-          <span className="sr-only">Open menu</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={user.role}>
-              {userRoles.map((role) => (
-                <DropdownMenuRadioItem key={role.value} value={role.value}>
-                  {role.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+  return (<div className="flex gap-1">
+    <Button size="xs">
+      <Pencil1Icon className="size-1" />
+    </Button>
+    <Button size="xs" variant="destructive" onClick={() => null}>
+      <TrashIcon className="size-1" />
+    </Button>
+  </div>
   )
 }

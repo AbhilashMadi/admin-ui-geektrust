@@ -1,9 +1,10 @@
 import { type FC } from "react";
 import { Outlet } from "react-router-dom";
 
-import Header from "@components/common/header";
 import Footer from "@components/common/footer";
+import Header from "@components/common/header";
 import ThemeContext from "@context/theme-context";
+import { Toaster } from "@ui/toaster";
 
 const Frame: FC = () => {
 
@@ -12,6 +13,7 @@ const Frame: FC = () => {
       <Header />
       <Outlet />
       <Footer />
+      <Toaster />
     </ThemeContext>
   )
 }
