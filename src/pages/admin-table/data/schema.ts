@@ -1,12 +1,11 @@
 
 import { z } from "zod"
 
-export const taskSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  status: z.string(),
-  label: z.string(),
-  priority: z.string(),
+export const userSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+  role: z.enum(["admin", "memeber"])
 })
 
-export type Task = z.infer<typeof taskSchema>;
+export type User = z.infer<typeof userSchema>;

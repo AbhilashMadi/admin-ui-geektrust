@@ -1,9 +1,9 @@
-import { type Theme } from "@/context/theme-context";
+import { type Theme } from "@context/theme-context";
 import { type FC } from "react";
 
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTheme } from "@/hooks/context-hooks";
-import { Constants } from "@/utils/constants";
+import { Tabs, TabsList, TabsTrigger } from "@ui/tabs";
+import { useTheme } from "@hooks/context-hooks";
+import { Constants } from "@utils/constants";
 import { MoonIcon, SunIcon, LaptopIcon } from "@radix-ui/react-icons";
 
 const ThemeTabs: FC = () => {

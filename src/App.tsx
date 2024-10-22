@@ -1,9 +1,9 @@
 import { type FC } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import RootErrorBoundary from "@/components/error-boundarys/root-error-boundary";
-import Frame from "@/components/layouts/frame";
-import SuspenseLoader from "./components/common/suspense-loader";
+import RootErrorBoundary from "@components/error-boundarys/root-error-boundary";
+import Frame from "@components/layouts/frame";
+import SuspenseLoader from "@components/common/suspense-loader";
 
 const App: FC = () => {
 
@@ -16,7 +16,7 @@ const App: FC = () => {
         {
           index: true,
           lazy: async () => {
-            const module = await import("@/pages/admin-table/admin-table");
+            const module = await import("@pages/admin-table/admin-table");
             return { Component: module.default };
           },
         },
