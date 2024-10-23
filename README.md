@@ -4,6 +4,8 @@
 
 This project is an Admin User Interface designed to manage users effectively. The UI allows admins to view, edit, delete, and filter user data in real-time, using data retrieved from a provided Users API.
 
+![image](https://github.com/user-attachments/assets/95020e26-daba-4024-a3af-d8f0dc5d1cf7)
+
 ### Problem Statement
 
 The goal of this project is to create an intuitive interface for admins to manage user data. The application meets the requirements outlined in the [GeekTrust Coding Challenge](https://www.geektrust.com/coding/detailed/admin-ui).
