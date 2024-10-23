@@ -147,7 +147,7 @@ export default function AdminTable() {
       accessorKey: "email",
       header: ({ column }) => <DataTableColumnHeader column={column} title="Email Address" />,
       cell: ({ row }) => {
-        return <div className="w-[220px]">{
+        return <div className="w-[300px]">{
           row.original.id === editRowId ? (
             <EditableCell
               value={editRecord?.email ?? ""}

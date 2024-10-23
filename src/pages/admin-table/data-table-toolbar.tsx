@@ -48,9 +48,9 @@ export function DataTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
         <Select onValueChange={(v) => setCurrentFiler(v)}>
-          <SelectTrigger className="w-min">
+          <SelectTrigger className="w-min" value={currentFilter}>
             <MagnifyingGlassIcon className="mr-1" />{" "}
-            <SelectValue placeholder={currentFilter} />
+            <SelectValue placeholder={"Name"} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="name">Name</SelectItem>
@@ -67,7 +67,10 @@ export function DataTableToolbar<TData>({
         {isFiltered && (
           <Button
             variant="ghost"
-            onClick={() => table.resetColumnFilters()}
+            onClick={() => {
+              table.resetColumnFilters();
+              setCurrentFiler("name");
+            }}
             className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
