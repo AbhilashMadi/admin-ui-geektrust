@@ -1,38 +1,21 @@
 import { CheckIcon, Cross1Icon, Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@ui/checkbox";
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { DataTable } from "./data-table";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { userRoles } from "./data-table-toolbar";
 import { User } from "./data/schema";
 
 import { ActionButton } from "@/components/ui/action-button";
+import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ui/select";
-import { Input } from "@/components/ui/input";
 
 export default function AdminTable() {
   const [dataSource, setDataSource] = useState<User[]>([]);
   const [editRowId, setEditRowId] = useState<string>("");
   const [editRecord, setEditRecord] = useState<User | null>(null);
-
-  // Fetch data on component mount
-  useEffect(() => {
-    const signal = new AbortController();
-    const fetchData = async () => {
-      try {
-        const res = await fetch("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json", { signal: signal.signal });
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-        const data = await res.json();
-        setDataSource(data || []);
-      } catch (error: any) {
-        if (error.name !== "AbortError") console.error("Fetch error:", error.message);
-      }
-    };
-    fetchData();
-    return () => signal.abort();
-  }, []);
 
   // Handle edit action
   const handleEdit = useCallback((row: User) => {
@@ -42,17 +25,59 @@ export default function AdminTable() {
 
   // Handle saving the edited row
   const handleSaveRow = useCallback(() => {
-    setDataSource((prevData) => prevData.map((row) => (row.id === editRowId ? editRecord! : row)));
+    if (!editRecord) return;
+
+    setDataSource((prevData) => prevData.map((row) => (row.id === editRowId ? editRecord : row)));
+
+    // Clear edit state
     setEditRowId("");
     setEditRecord(null);
+
     toast({ title: "Row updated successfully!" });
   }, [editRecord, editRowId]);
+
 
   // Handle cancel edit
   const handleCancelEdit = useCallback(() => {
     setEditRowId("");
     setEditRecord(null);
   }, []);
+
+  // Handle field value changes for edit
+  const handleCellValueChange = (name: string, value: string) => {
+    setEditRecord((pre) => {
+      if (pre) {
+        return { ...pre, [name]: value }
+      } else {
+        return pre;
+      }
+    });
+  };
+  console.log(editRecord);
+
+  // Input component with local state to prevent losing focus
+  const EditableCell = ({ value, onChange, onSave }: {
+    value: string,
+    onChange: (val: string) => void,
+    onSave: () => void
+  }) => {
+    const [inputVal, setInputVal] = useState(value);
+
+    const handleKeyDown = (e: React.KeyboardEvent): void => {
+      if (e.key === "Enter") {
+        onSave();
+      }
+    };
+
+    return (
+      <Input
+        value={inputVal}
+        onChange={(e) => setInputVal(e.target.value)}
+        onBlur={() => { onChange(inputVal); }}
+        onKeyDown={handleKeyDown}
+      />
+    );
+  };
 
   // Handle deleting a row
   const handleDeleteRow = useCallback((row: User) => {
@@ -72,32 +97,6 @@ export default function AdminTable() {
       ),
     });
   }, []);
-
-  // Handle field value changes for edit
-  const handleCellValueChange = useCallback((name: string, value: string) => {
-    setEditRecord((prev) => (prev ? { ...prev, [name]: value } : null));
-  }, []);
-
-  // Input component with local state to prevent losing focus
-  const EditableCell = ({ value, onChange, onSave }: { value: string, onChange: (val: string) => void, onSave: () => void }) => {
-    const [inputVal, setInputVal] = useState(value);
-
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (e.key === "Enter") { onSave() }
-    };
-
-    return (
-      <Input
-        value={inputVal}
-        onChange={(e) => setInputVal(e.target.value)}
-        onBlur={() => {
-          onChange(inputVal);
-          onSave();
-        }}
-        onKeyDown={handleKeyDown}
-      />
-    );
-  };
 
   // Memoize columns to avoid re-creating them on every render
   const columns = useMemo<ColumnDef<User>[]>(() => [
@@ -214,10 +213,28 @@ export default function AdminTable() {
     },
   ], [editRowId, editRecord, handleCellValueChange, handleSaveRow, handleCancelEdit, handleDeleteRow]);
 
+  // Fetch data on component mount
+  useEffect(() => {
+    const signal = new AbortController();
+    const fetchData = async () => {
+      try {
+        const res = await fetch("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json", { signal: signal.signal });
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        const data = await res.json();
+        setDataSource(data || []);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        if (error.name !== "AbortError") console.error("Fetch error:", error.message);
+      }
+    };
+    fetchData();
+    return () => signal.abort();
+  }, []);
+
   return (
     <main className="min-h-screen flex-center">
       <section className="mx-auto">
-        <DataTable columns={columns} data={dataSource} />
+        <DataTable columns={columns} data={dataSource} setDataSource={setDataSource} />
       </section>
     </main>
   );
