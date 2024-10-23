@@ -27,7 +27,9 @@ export default function AdminTable() {
   const handleSaveRow = useCallback(() => {
     if (!editRecord) return;
 
-    setDataSource((prevData) => prevData.map((row) => (row.id === editRowId ? editRecord : row)));
+    setDataSource((prevData) =>
+      prevData.map((row) => (row.id === editRowId ? editRecord : row))
+    );
 
     // Clear edit state
     setEditRowId("");
@@ -53,7 +55,6 @@ export default function AdminTable() {
       }
     });
   };
-  console.log(editRecord);
 
   // Input component with local state to prevent losing focus
   const EditableCell = ({ value, onChange }: {
@@ -72,9 +73,8 @@ export default function AdminTable() {
     return (
       <Input
         value={inputVal}
-        onChange={(e) => setInputVal(e.target.value)}
+        onChange={(e) => { setInputVal(e.target.value) }}
         onBlur={() => { onChange(inputVal); }}
-      // onKeyDown={handleKeyDown}
       />
     );
   };
@@ -188,25 +188,34 @@ export default function AdminTable() {
       id: "actions",
       header: () => <div className="text-xs">Action</div>,
       cell: ({ row }) => {
-        return row.original.id === editRowId ? (
-          <div className="flex gap-1">
-            <ActionButton className="bg-green-400 hover:bg-green-600 text-white save" onClick={handleSaveRow}>
-              <CheckIcon />
-            </ActionButton>
-            <ActionButton className="bg-destructive text-white cancel" onClick={handleCancelEdit}>
-              <Cross1Icon />
-            </ActionButton>
-          </div>
-        ) : (
-          <div className="flex gap-1">
-            <ActionButton onClick={() => handleEdit(row.original)} className="edit">
-              <Pencil1Icon />
-            </ActionButton>
-            <ActionButton className="hover:bg-destructive delete" onClick={() => handleDeleteRow(row.original)}>
-              <TrashIcon />
-            </ActionButton>
-          </div>
-        );
+        return row.original.id === editRowId
+          ? (
+            <div className="flex gap-1">
+              <ActionButton
+                className="bg-green-400 hover:bg-green-600 text-white save"
+                onClick={handleSaveRow}>
+                <CheckIcon />
+              </ActionButton>
+              <ActionButton
+                className="bg-destructive text-white cancel"
+                onClick={handleCancelEdit}>
+                <Cross1Icon />
+              </ActionButton>
+            </div>
+          ) : (
+            <div className="flex gap-1">
+              <ActionButton
+                onClick={() => handleEdit(row.original)}
+                className="edit">
+                <Pencil1Icon />
+              </ActionButton>
+              <ActionButton
+                className="hover:bg-destructive delete"
+                onClick={() => handleDeleteRow(row.original)}>
+                <TrashIcon />
+              </ActionButton>
+            </div>
+          );
       },
     },
   ], [editRowId, editRecord, handleCellValueChange, handleSaveRow, handleCancelEdit, handleDeleteRow]);
