@@ -190,19 +190,19 @@ export default function AdminTable() {
       cell: ({ row }) => {
         return row.original.id === editRowId ? (
           <div className="flex gap-1">
-            <ActionButton className="bg-green-400 hover:bg-green-600 text-white" onClick={handleSaveRow}>
+            <ActionButton className="bg-green-400 hover:bg-green-600 text-white save" onClick={handleSaveRow}>
               <CheckIcon />
             </ActionButton>
-            <ActionButton className="bg-destructive text-white" onClick={handleCancelEdit}>
+            <ActionButton className="bg-destructive text-white cancel" onClick={handleCancelEdit}>
               <Cross1Icon />
             </ActionButton>
           </div>
         ) : (
           <div className="flex gap-1">
-            <ActionButton onClick={() => handleEdit(row.original)}>
+            <ActionButton onClick={() => handleEdit(row.original)} className="edit">
               <Pencil1Icon />
             </ActionButton>
-            <ActionButton className="hover:bg-destructive" onClick={() => handleDeleteRow(row.original)}>
+            <ActionButton className="hover:bg-destructive delete" onClick={() => handleDeleteRow(row.original)}>
               <TrashIcon />
             </ActionButton>
           </div>

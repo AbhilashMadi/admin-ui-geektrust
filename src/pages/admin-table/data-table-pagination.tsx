@@ -51,7 +51,7 @@ export function DataTablePagination<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex-1 text-sm text-muted-foreground">
-        <Button size="sm" variant={selectedRows ? "destructive" : "outline-dashed"} onClick={handleSelectedRowsDelete}>
+        <Button size="sm" variant={selectedRows ? "destructive" : "outline-dashed"} onClick={handleSelectedRowsDelete} data-testid="delete-selected">
           Delete{" "}{selectedRows} of{" "}
           {filteredRows} row(s) selected
         </Button>
@@ -98,7 +98,7 @@ export function DataTablePagination<TData>({
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex"
+            className="hidden h-8 w-8 p-0 lg:flex first-page"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -107,7 +107,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 previous-page"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -116,7 +116,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 next-page"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -125,7 +125,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex"
+            className="hidden h-8 w-8 p-0 lg:flex last-page"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >

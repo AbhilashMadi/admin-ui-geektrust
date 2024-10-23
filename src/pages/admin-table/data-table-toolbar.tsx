@@ -1,14 +1,14 @@
-import { Cross2Icon, PersonIcon, BackpackIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons"
+import { BackpackIcon, MagnifyingGlassIcon, PersonIcon, ResetIcon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
+import { DataTableViewOptions } from "@pages/admin-table/data-table-view-options"
 import { Button } from "@ui/button"
 import { Input } from "@ui/input"
-import { DataTableViewOptions } from "@pages/admin-table/data-table-view-options"
 
 // import { priorities, statuses } from "../data/data"
-import { DataTableFacetedFilter } from "@pages/admin-table/data-table-faceted-filter"
 import ThemeTabs from "@components/common/theme-tabs"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@ui/select"
+import { DataTableFacetedFilter } from "@pages/admin-table/data-table-faceted-filter"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ui/select"
 import { ChangeEvent, useState } from "react"
 
 interface DataTableToolbarProps<TData> {
@@ -42,14 +42,15 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder={`Filter by ${currentFilter}s...`}
+          placeholder={`Search by ${currentFilter}s...`}
           value={(table.getColumn(currentFilter)?.getFilterValue() as string) ?? ""}
           onChange={handleFilterChange}
           className="h-8 w-[150px] lg:w-[250px]"
+          data-testid="search-input"
         />
         <Select onValueChange={(v) => setCurrentFiler(v)}>
           <SelectTrigger className="w-min" value={currentFilter}>
-            <MagnifyingGlassIcon className="mr-1" />{" "}
+            <MagnifyingGlassIcon className="mr-1 search-icon" />{" "}
             <SelectValue placeholder={"Name"} />
           </SelectTrigger>
           <SelectContent>
@@ -66,14 +67,14 @@ export function DataTableToolbar<TData>({
         )}
         {isFiltered && (
           <Button
-            variant="ghost"
             onClick={() => {
               table.resetColumnFilters();
               setCurrentFiler("name");
             }}
-            className="h-8 px-2 lg:px-3">
-            Reset
-            <Cross2Icon className="ml-2 h-4 w-4" />
+            className="h-8"
+            variant="destructive"
+          >
+            <ResetIcon />
           </Button>
         )}
       </div>
