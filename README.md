@@ -1,50 +1,33 @@
-# React + TypeScript + Vite
+# Admin User Interface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project is an Admin User Interface designed to manage users effectively. The UI allows admins to view, edit, delete, and filter user data in real-time, using data retrieved from a provided Users API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Problem Statement
 
-## Expanding the ESLint configuration
+The goal of this project is to create an intuitive interface for admins to manage user data. The application meets the requirements outlined in the [GeekTrust Coding Challenge](https://www.geektrust.com/coding/detailed/admin-ui).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- **Dynamic User Management**: View user details, and edit or delete them directly in the interface.
+- **Search Functionality**: Filter users based on any property (ID, Name, Email, Role).
+- **Pagination**: Navigate through pages with 10 rows displayed per page. Supports first, previous, next, and last page buttons.
+- **Row Selection**: Select one or more rows for batch deletion. Highlight selected rows for easy identification.
+- **In-Place Editing**: Click to edit user details directly within the table.
+- **Delete Selected**: A button to delete multiple selected users at once.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Getting Started
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Prerequisites
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Node.js installed on your machine.
+- A modern web browser (Chrome, Firefox, etc.).
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:AbhilashMadi/admin-ui-geektrust.git
+   cd admin-ui
+   ```
