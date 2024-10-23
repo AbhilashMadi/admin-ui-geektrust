@@ -230,7 +230,7 @@ export default function AdminTable() {
   }, []);
 
   return (
-    <main className="min-h-screen flex-center">
+    <main className="min-h-screen flex-center" data-testid="admin-table">
       <section className="mx-auto">
         <DataTable columns={columns} data={dataSource} setDataSource={setDataSource} />
       </section>
