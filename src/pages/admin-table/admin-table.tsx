@@ -56,25 +56,25 @@ export default function AdminTable() {
   console.log(editRecord);
 
   // Input component with local state to prevent losing focus
-  const EditableCell = ({ value, onChange, onSave }: {
+  const EditableCell = ({ value, onChange }: {
     value: string,
     onChange: (val: string) => void,
-    onSave: () => void
+    // onSave: () => void
   }) => {
     const [inputVal, setInputVal] = useState(value);
 
-    const handleKeyDown = (e: React.KeyboardEvent): void => {
-      if (e.key === "Enter") {
-        onSave();
-      }
-    };
+    // const handleKeyDown = (e: React.KeyboardEvent): void => {
+    //   if (e.key === "Enter") {
+    //     onSave();
+    //   }
+    // };
 
     return (
       <Input
         value={inputVal}
         onChange={(e) => setInputVal(e.target.value)}
         onBlur={() => { onChange(inputVal); }}
-        onKeyDown={handleKeyDown}
+      // onKeyDown={handleKeyDown}
       />
     );
   };
@@ -135,7 +135,6 @@ export default function AdminTable() {
             <EditableCell
               value={editRecord?.name ?? ""}
               onChange={(val) => handleCellValueChange("name", val)}
-              onSave={handleSaveRow}
             />
           ) : (
             row.getValue("name")
@@ -152,7 +151,6 @@ export default function AdminTable() {
             <EditableCell
               value={editRecord?.email ?? ""}
               onChange={(val) => handleCellValueChange("email", val)}
-              onSave={handleSaveRow}
             />
           ) : (
             row.getValue("email")
