@@ -16,6 +16,12 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script>
+    fetch("http://localhost:8080")  // Backend is running on 8080
+      .then((res) => console.log(res))
+      .catch(console.log); // Should catch CORS error if CORS is not set up
+
+  </script>
 </body>
 
 </html>
