@@ -19,14 +19,7 @@ const App: FC = () => {
             const module = await import("@pages/admin-table/admin-table");
             return { Component: module.default };
           },
-        },
-        {
-          path: "tic-tac-toe",
-          lazy: async () => {
-            const module = await import("@pages/tic-tac-toe/Game");
-            return { Component: module.default };
-          },
-        },
+        }
       ],
     },
     {
