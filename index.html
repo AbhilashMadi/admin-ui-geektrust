@@ -22,19 +22,6 @@
       .catch(console.log); // Should catch CORS error if CORS is not set up
 
   </script>
-  <script>
-    fetch('http://localhost:8080', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer token'  // Add custom header to trigger preflight
-      },
-      body: JSON.stringify({ message: 'Test' })
-    })
-      .then((res) => console.log(res))
-      .catch(console.log);
-
-  </script>
 </body>
 
 </html>
